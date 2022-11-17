@@ -1,0 +1,12 @@
+version: "3"
+services:
+  pg:
+    image: postgres:15.0-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=dockerdev
+      - POSTGRES_PASSWORD=dockerdev
+      - POSTGRES_DB=dockertest
+    volumes:
+      - "./docker/pg:/var/lib/postgresql/data"
