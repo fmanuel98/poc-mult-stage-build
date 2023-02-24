@@ -2,9 +2,9 @@ package fmanuel98.com.github.profile.users.dto
 
 import fmanuel98.com.github.profile.users.User
 import fmanuel98.com.github.profile.users.roles.Role
-import javax.validation.constraints.Email
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.Size
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Size
 
 class UserModel(val id: Long, val name: String, val email: String, val password: String) {
     constructor(user: User) : this(user.id, user.name, user.email, user.password)

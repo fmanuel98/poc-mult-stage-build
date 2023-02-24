@@ -3,8 +3,8 @@ package fmanuel98.com.github.profile.users
 import fmanuel98.com.github.profile.users.roles.Role
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.Optional
-import javax.persistence.*
-import javax.persistence.GenerationType.IDENTITY
+import jakarta.persistence.*
+import jakarta.persistence.GenerationType.IDENTITY
 
 @Entity
 @Table(name = "users")

@@ -20,11 +20,7 @@ class ApiExceptionHandler(private val messageSource: MessageSource) : ResponseEn
     val MSG_ERRO_GENERICA_USUARIO_FINAL =
         ("Ocorreu um erro interno inesperado no sistema. Tente novamente e se " + "o problema persistir, entre em contato com o administrador do sistema.")
 
-    override fun handleMethodArgumentNotValid(
-        ex: MethodArgumentNotValidException, headers: HttpHeaders, status: HttpStatus, request: WebRequest
-    ): ResponseEntity<Any> {
-        return handleValidationInternal(ex, headers, status, request, ex.bindingResult)
-    }
+
 
     private fun handleValidationInternal(
         ex: Exception, headers: HttpHeaders, status: HttpStatus, request: WebRequest, bindingResult: BindingResult
@@ -40,7 +36,8 @@ class ApiExceptionHandler(private val messageSource: MessageSource) : ResponseEn
         val problem = createProblemBuilder(
             status = status, problemType = problemType, detail = detail, userMessage = detail, objects = problemObjects
         )
-        return handleExceptionInternal(ex, problem, headers, status, request)
+        //return handleExceptionInternal(ex, problem, headers, status, request)
+        return super.handleExceptionInternal(ex,problem,headers,status,request)!!
     }
 
     @ExceptionHandler(EntityNotFoundException::class)
@@ -63,21 +60,7 @@ class ApiExceptionHandler(private val messageSource: MessageSource) : ResponseEn
         return handleExceptionInternal(ex, problem, HttpHeaders(), status, request)
     }
 
-    override fun handleExceptionInternal(
-        ex: java.lang.Exception, body: Any?, headers: HttpHeaders, status: HttpStatus, request: WebRequest
-    ): ResponseEntity<Any> {
-        val body = when (body) {
-            null -> Problem(
-                title = status.reasonPhrase, status = status.value(), userMessage = MSG_ERRO_GENERICA_USUARIO_FINAL
-            )
-            is String -> Problem(
-                title = body, status = status.value(), userMessage = MSG_ERRO_GENERICA_USUARIO_FINAL
-            )
 
-            else -> Problem(status = status.value(), userMessage = MSG_ERRO_GENERICA_USUARIO_FINAL)
-        }
-        return super.handleExceptionInternal(ex, body, headers, status, request)
-    }
 
     private fun createProblemBuilder(
         status: HttpStatus,
