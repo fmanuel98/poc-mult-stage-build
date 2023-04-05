@@ -6,8 +6,8 @@ import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
-class UserModel(val id: Long, val name: String, val email: String, val password: String) {
-    constructor(user: User) : this(user.id, user.name, user.email, user.password)
+class UserModel(val id: Long, val name: String, val email: String) {
+    constructor(user: User) : this(user.id, user.name, user.email)
 }
 
 open class UserInput(

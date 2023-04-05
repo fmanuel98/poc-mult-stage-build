@@ -11,7 +11,7 @@ import jakarta.persistence.GenerationType.IDENTITY
 data class User(
     @Id @GeneratedValue(strategy = IDENTITY) var id: Long = 0,
     val name: String,
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     val email: String,
     var password: String="",
     @ManyToMany @JoinTable(

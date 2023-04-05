@@ -4,9 +4,6 @@ import fmanuel98.com.github.profile.users.dto.UserInput
 import fmanuel98.com.github.profile.users.dto.UserModel
 import fmanuel98.com.github.profile.users.dto.UserWithPassword
 import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.media.Content
-import io.swagger.v3.oas.annotations.media.Schema
-import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -36,7 +33,7 @@ class UserControlle(private val users: Users, private val service: UserService) 
         summary = "Cadastra um usuario",
         description = "Cadastro de um usuario, necessita de um email e um nome válido"
     )
-    fun save(@RequestBody user: UserWithPassword) = user.run {
+    fun save(@RequestBody @Valid user: UserWithPassword) = user.run {
         service.save(this.toDomain())
     }.let { UserModel(it) }
 
