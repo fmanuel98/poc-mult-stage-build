@@ -18,6 +18,7 @@ open class UserInput(
 
 class UserWithPassword(name: String, email: String, @field:ValidPassword val password: String) :
     UserInput(name, email) {
+
     override fun toDomain() = super.toDomain().copy(password = password)
 }
 
